@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Hospital.reservation.model.mapper.ResMapper">
+
+    <!-- 특정 날짜의 예약 목록 조회 -->
+    <select id="findByDate" resultType="Hospital.reservation.model.dto.ResDto">
+        SELECT a.appointmentid, a.patientid, p.name AS patient_name, a.appointmentdate, a.appointmenttime, a.status, a.createdat
+        FROM appointment a
+        JOIN patient p ON a.patientid = p.patientid
+        WHERE a.appointmentdate = #{appointmentdate}
+    </select>
+
+    <!-- 의사별 예약 목록 조회 -->
+    <select id="findByDoctor" resultType="Hospital.reservation.model.dto.ResDto" parameterType="int">
+        SELECT a.appointmentid, a.patientid, p.name AS patient_name, a.appointmentdate, a.appointmenttime, a.status, a.createdat
+        FROM appointment a
+        JOIN patient p ON a.patientid = p.patientid
+        WHERE a.doctorid = #{doctorid}
+    </select>
+
+    <!-- 환자별 예약 목록 조회 -->
+    <select id="findByPatient" resultType="Hospital.reservation.model.dto.ResDto" parameterType="int">
+        SELECT a.appointmentid, a.patientid, p.name AS patient_name, a.appointmentdate, a.appointmenttime, a.status, a.createdat
+        FROM appointment a
+        JOIN patient p ON a.patientid = p.patientid
+        WHERE a.patientid = #{patientid}
+    </select>
+
+    <!-- 예약 저장 -->
+    <insert id="save" parameterType="Hospital.reservation.model.dto.ResDto">
+        INSERT INTO appointment (patientid, doctorid, appointmentdate, appointmenttime)
+        VALUES (#{patientid}, #{doctorid}, #{appointmentdate}, #{appointmenttime})
+    </insert>
+
+    <!-- 예약 수정 -->
+    <update id="update" parameterType="Hospital.reservation.model.dto.ResDto">
+        UPDATE appointment
+        SET appointmentdate = #{appointmentdate},
+        appointmenttime = #{appointmenttime}
+        WHERE appointmentid = #{appointmentid}
+    </update>
+
+
+    <!-- 예약 삭제-->
+    <update id="cancelReservation" parameterType="int">
+        UPDATE appointment
+        SET status = 0
+        WHERE appointmentid = #{appointmentid} AND status = 1
+    </update>
+
+
+</mapper>

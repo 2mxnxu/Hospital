@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>예약 관리</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="res.js"></script>
+</head>
+<body>
+<h1>진료 예약 관리</h1>
+
+<!-- 신규 예약 추가 -->
+<h2>신규 진료 예약</h2>
+<label for="patientid">환자 ID:</label>
+<input type="number" id="patientid"><br><br>
+<label for="doctorid">의사 ID:</label>
+<input type="number" id="doctorid"><br><br>
+<label for="appointmentdate">예약 날짜:</label>
+<input type="date" id="appointmentdate"><br><br>
+<label for="appointmenttime">예약 시간:</label>
+<input type="time" id="appointmenttime"><br><br>
+<button onclick="onSave()">진료 예약 추가</button><br><br>
+
+<!-- 특정 날짜의 예약 목록 조회 -->
+<h2>특정 날짜의 예약 목록 조회</h2>
+<label for="findDate">조회할 날짜:</label>
+<input type="date" id="findDate">
+<button onclick="onFindByDate()">조회</button><br><br>
+
+<!-- 환자별 예약 조회 -->
+<h2>환자별 예약 조회</h2>
+<label for="patientSearch">환자 ID:</label>
+<input type="number" id="patientSearch">
+<button onclick="onFindByPatient()">조회</button><br><br>
+
+<!-- 의사별 예약 조회 -->
+<h2>의사별 예약 조회</h2>
+<label for="doctorSearch">의사 ID:</label>
+<input type="number" id="doctorSearch">
+<button onclick="onFindByDoctor()">조회</button><br><br>
+
+<!-- 예약 목록 -->
+<h2>예약 목록</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>예약 ID</th>
+        <th>환자 ID</th>
+        <th>의사 ID</th>
+        <th>예약 날짜</th>
+        <th>예약 시간</th>
+        <th>상태</th>
+        <th>수정</th>
+        <th>취소</th>
+    </tr>
+    </thead>
+    <tbody id="reservationTable">
+
+    </tbody>
+</table>
+</body>
+</html>
